@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Simple Calculator</string>
+    <string name="help_text">input expression</string>
+    <string name="submit_button">=</string>
+    <string name="button0_text">0</string>
+    <string name="button1_text">1</string>
+    <string name="button2_text">2</string>
+    <string name="button3_text">3</string>
+    <string name="button4_text">4</string>
+    <string name="button5_text">5</string>
+    <string name="button6_text">6</string>
+    <string name="button7_text">7</string>
+    <string name="button8_text">8</string>
+    <string name="button9_text">9</string>
+    <string name="button_plus_text">+</string>
+    <string name="button_minus_text">-</string>
+    <string name="button_multiply_text">*</string>
+    <string name="button_divide_text">/</string>
+    <string name="button_modulus_text">%</string>
+    <string name="button_exponent_text">^</string>
+    <string name="button_incerse_text">1/x</string>
+    <string name="button_openBracket_text">(</string>
+    <string name="button_closeBracket_text">)</string>
+    <string name="button_decimal_text">.</string>
+    <string name="button_clear_text">Reset</string>
+    <string name="not_implemented_text">NA</string>
+    <string name="button_equals_text">=</string>
+    <string name="button_log10_text">log10</string>
+    <string name="button_log2_text">log</string>
+    <string name="button_natural_text">e</string>
+    <string name="button_pi_text">pi</string>
+    <string name="button_ans_text">ans</string>
+    <string name="button_negative_text">-/+</string>
+    <string name="button_Clear_element">CE</string>
+    <string name="Result_desc_text">Result</string>
+    <array name="numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>0</item>
+    </array>
+
+</resources>

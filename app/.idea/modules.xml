@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-189216117/CalculatorApp.iml" filepath="$PROJECT_DIR$/.idea/modules/-189216117/CalculatorApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-16675583/lib.iml" filepath="$PROJECT_DIR$/.idea/modules/-16675583/lib.iml" group="lib" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-16675583/lib_main.iml" filepath="$PROJECT_DIR$/.idea/modules/-16675583/lib_main.iml" group="lib" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-16675583/lib_test.iml" filepath="$PROJECT_DIR$/.idea/modules/-16675583/lib_test.iml" group="lib" />
+    </modules>
+  </component>
+</project>
