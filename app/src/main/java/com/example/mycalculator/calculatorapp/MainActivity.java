@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private String lastInput;
     private int bracketMatch;
     Stack<String> inputStack;
-    private SimpleCalculator sc;
+    private SimpleCalculatorV2 sc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         input = (EditText) findViewById(R.id.editText);
         resultText = ((TextView) findViewById(R.id.resultsView));
 
-        sc  =  new SimpleCalculator();
+        sc  =  new SimpleCalculatorV2();
         initializeCalculator();
 
     }
@@ -46,26 +46,19 @@ public class MainActivity extends AppCompatActivity {
         lastInput = "BEG";
     }
 
-    public void printTest(View v){
+    public void equalButtonClick(View v){
         Intent intent = new Intent(this, ResultsActivity.class);
         EditText editText = (EditText) findViewById(R.id.editText);
         String calc = editText.getText().toString();
-        if (lastInput.equals(".")) {
-            addToInput("0");
-            calc = editText.getText().toString();
-        }
 
         if (isLastAnOperator() || bracketMatch != 0) {
-
-
-            //("Invalid Expression!Please Retry");
-
-
-            //initializeCalculator();
+            resultText.setText("Invalid Expression! Please Retry");
             return;
         }
 
-
+        if (lastInput.equals(".")) {
+            addToInput("0");
+        }
 
         try {
             sc.handleInput(calc);
@@ -79,30 +72,33 @@ public class MainActivity extends AppCompatActivity {
         input.setText("");
     }
 
-    public void numberButtonClick(View v){
+    public void numberButtonClick(View v) {
         //EditText editText = (EditText) findViewById(R.id.editText);
-        String text = new String(((Button)v).getText().toString().trim());
+        String text = new String(((Button) v).getText().toString().trim());
 
         if (lastInput == null)
             return;
 
-
-        if (!lastInput.endsWith(") ") && !isLastAConstant())
-            addToInput(text);
-        else {
+        if (lastInput.endsWith(") ") || isLastAConstant()){
             addToInput(" * ");
-            addToInput(text);
         }
+
+        addToInput(text);
+
         canUseOp = true;
 
     }
 
     public void decimalButtonClick(View v){
         if (canUseDecimal){
-            if (!lastInput.endsWith(") ") && !isLastAConstant()){
-
-                addToInput(".");
+            if (lastInput.endsWith(") ") || isLastAConstant()) {
+                addToInput(" * ");
+                addToInput("0");
+            } else if (lastInput.endsWith("( ") || isLastAnOperator()){
+                addToInput("0");
             }
+
+            addToInput(".");
             canUseDecimal = false;
             return;
         }
@@ -111,22 +107,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void operatorButtonClick(View v) {
-        //EditText editText = (EditText) findViewById(R.id.editText);
+
         String text = ((Button) v).getText().toString().trim();
 
-
-
-
         if (text.equals(".") && canUseDecimal){
-            if (!lastInput.endsWith(") ")){
-                canUseDecimal = false;
-                addToInput(text);
-
-            }
+            decimalButtonClick(v);
             return;
         }
 
-        if (text.equals("1/x") || text.equals("log10") || text.equals("log")){
+        if (text.equals("1/x") || text.equals("log10") || text.equals("log") || text.equals("√")){
 
             if (!isLastAnOperator() && !lastInput.endsWith("( "))
                 addToInput(" * ");
@@ -142,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (!canUseOp) {
-            text = "";
             return;
         }
         canUseOp = false;
@@ -177,18 +165,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void constantButtonClick(View v){
-        //EditText editText = (EditText) findViewById(R.id.editText);
+
         String text = new String(((Button)v).getText().toString().trim());
 
         if (lastInput == null)
             return;
 
-        if (isLastAnOperator() || lastInput.trim().equals("("))
-            addToInput(text);
-        else {
+        if (!isLastAnOperator() && !lastInput.trim().equals("(")) {
             addToInput(" * ");
-            addToInput(text);
         }
+
+        addToInput(text);
+
         canUseOp = true;
     }
 
@@ -215,55 +203,51 @@ public class MainActivity extends AppCompatActivity {
     // doesn't delete '(' open brackets or anything defined as opereator in isLastOperator
     private boolean deleteLastInput(){
 
-        String last;
-        if (!isLastAnOperator() ){
 
-            if (lastInput.endsWith("( ") )
-                return false;
-
-            if (lastInput.endsWith(") "))
-                bracketMatch -= 1;
-
-            /*
-            if (isLastAConstant())
-                return false;
-            */
-                last = "";
-                if (!inputStack.isEmpty())
-                    last = inputStack.pop();
-
-
-
-                int editLength = input.getText().length();
-                input.getText().delete(editLength - last.length(), editLength);
-                lastInput = getLastInput();
-
-
-
-                if (lastInput == null) {
-                    lastInput = "BEG";
-                    return false;
-                }
-
-                if (last.equals(".")){
-                    canUseDecimal = true;
-                }
-
-                // testing////////////////////////////////////////////////////// Doesn't run
-                if (isLastAnOperator())
-                    canUseOp = false;
-                /*
-                else if (lastInput.equals("."))
-                    canUseDecimal = false;
-                else
-                    canUseDecimal = false;
-                */
-
-                return true;
-
+        if (isLastAnOperator() || lastInput.endsWith("( ")){
+            return false;
         }
 
-        return false;
+        String last = "";
+        if (!inputStack.isEmpty()) {
+            last = inputStack.pop();
+        } else {
+            lastInput = "BEG";
+            return false;
+        }
+
+        if (last.endsWith(") ")) {
+            bracketMatch += 1;
+        }
+
+        if (last.equals(".")){
+            canUseDecimal = true;
+        }
+
+        int editLength = input.getText().length();
+        input.getText().delete(editLength - last.length(), editLength);
+
+        lastInput = getLastInput();
+
+        if (lastInput == null) {
+            lastInput = "BEG";
+        }
+
+
+
+        // testing////////////////////////////////////////////////////// Doesn't run
+        if (isLastAnOperator())
+            canUseOp = false;
+        /*
+        else if (lastInput.equals("."))
+            canUseDecimal = false;
+        else
+            canUseDecimal = false;
+        */
+
+        return true;
+
+
     }
 
     public void bracketAdd(View v){
@@ -271,26 +255,23 @@ public class MainActivity extends AppCompatActivity {
         if (text.equals("(")){
 
             if (!isLastAnOperator() && !lastInput.endsWith("( ")) {
-                //text = " *";
                 addToInput(" *");
             }
-                canUseOp = false;
-                canUseDecimal = true;
-                addToInput(" " + text + " ");
-                bracketMatch+=1;
+            canUseOp = false;
+            canUseDecimal = true;
+            addToInput(" " + text + " ");
+            bracketMatch+=1;
         }else if (text.equals(")")){
 
 
             if (bracketMatch > 0) {
                 boolean willAdd = false;
                 if (lastInput.equals(".")) {
-                    //text = " ) ";
                     addToInput("0");
                     willAdd = true;
                 }
 
                 if (!isLastAnOperator() && !lastInput.endsWith("( ")) {
-                    //text = " ) ";
                     willAdd = true;
                 }
 
@@ -308,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
         Stack<String> temp = new Stack<>();
         while(isLastAConstant() || isLastANumber() || lastInput.endsWith(") ") || lastInput.equals(".")){
             temp.push(inputStack.peek());
-            deleteLastInput();
+            deleteLastInput(); // call delete last input, syncs deletion with whats is displayed on screen
         }
 
         if (temp.isEmpty())
@@ -335,6 +316,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         while(!temp.isEmpty()){
+            if (temp.peek().endsWith(") ")) {
+                bracketMatch -= 1;
+            }
+
+            if (temp.peek().equals(".")){
+                canUseDecimal = false;
+            }
             addToInput(temp.pop());
         }
 

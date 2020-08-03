@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/darker_gray"
@@ -25,25 +26,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:enabled="false"
-        android:focusable="false"
-        android:hint="@string/help_text"
-        android:inputType="textMultiLine"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resultsView" />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:ems="10"
+            android:enabled="false"
+            android:focusable="false"
+            android:hint="@string/help_text"
+            android:inputType="textMultiLine"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resultsView" />
+
+
+
 
     <TableLayout
         android:id="@+id/tableLayoutNumbers"
@@ -360,7 +364,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@color/buttonBackColor"
-                android:onClick="printTest"
+                android:onClick="equalButtonClick"
                 android:text="@string/button_equals_text"
                 android:textColor="@color/buttonForeColor"
                 android:textSize="@dimen/text_size" />
@@ -425,6 +429,19 @@
                     tools:layout_editor_absoluteY="93dp" />
 
                 <Button
+                    android:id="@+id/button11"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/buttonBackColor"
+                    android:onClick="operatorButtonClick"
+                    android:text="@string/button_modulus_text"
+                    android:textColor="@color/buttonForeColor"
+                    android:textSize="@dimen/text_size"
+                    tools:layout_editor_absoluteX="27dp"
+                    tools:layout_editor_absoluteY="93dp" />
+
+                <Button
                     android:id="@+id/button3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -473,6 +490,19 @@
                     android:text="@string/button_natural_text"
                     android:textColor="@color/buttonForeColor"
                     android:textSize="@dimen/text_size" />
+
+                <Button
+                    android:id="@+id/button12"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/buttonBackColor"
+                    android:onClick="operatorButtonClick"
+                    android:text="@string/button_squareroot_text"
+                    android:textColor="@color/buttonForeColor"
+                    android:textSize="@dimen/text_size"
+                    tools:layout_editor_absoluteX="27dp"
+                    tools:layout_editor_absoluteY="93dp" />
 
                 <Button
                     android:id="@+id/button8"
