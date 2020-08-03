@@ -33,6 +33,7 @@
     <string name="button_negative_text">-/+</string>
     <string name="button_Clear_element">CE</string>
     <string name="Result_desc_text">Result</string>
+    <string name="button_squareroot_text">√</string>
     <array name="numbers">
         <item>1</item>
         <item>2</item>
